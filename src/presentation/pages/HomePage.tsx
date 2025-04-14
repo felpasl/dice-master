@@ -1,20 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DiceRoller from '../components/DiceRoller';
+import RollDiceUseCase from '../../app/usecases/RollDiceUseCase';
+import Dice from '../../domain/entities/Dice';
 
 /**
  * HomePage
  * Main page component for the dice-master application
  */
-const HomePage: React.FC = () => {
-  // Page implementation will go here
+interface HomePageProps {
+  rollDiceUseCase: RollDiceUseCase;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ rollDiceUseCase }) => {
+  const [lastRoll, setLastRoll] = useState<{ sides: number, result: number } | null>(null);
+  
+  const handleDiceRoll = (sides: number) => {
+    // Use the provided use case to roll the dice
+    const dice = rollDiceUseCase.execute(sides);
+    
+    setLastRoll({ sides, result: dice.value });
+    console.log(`Rolling a ${sides}-sided die: ${dice.value}`);
+  };
   
   return (
     <div className="home-page">
       <h1>Dice Master</h1>
-      <DiceRoller onRoll={(sides) => {
-        // Handle dice roll
-        console.log(`Rolling a ${sides}-sided die`);
-      }} />
+      <p>Roll your dice with precision!</p>
+      
+      <DiceRoller onRoll={handleDiceRoll} />
+      
+      {lastRoll && (
+        <div className="last-roll-info">
+          <h2>Last Roll</h2>
+          <p>You rolled a D{lastRoll.sides} and got: <span className="roll-result">{lastRoll.result}</span></p>
+        </div>
+      )}
     </div>
   );
 };
