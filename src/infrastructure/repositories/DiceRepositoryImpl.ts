@@ -14,8 +14,11 @@ class DiceRepositoryImpl implements DiceRepository {
   }
   
   getRandom(sides: number): Dice {
-    // Implementation will go here
-    return new Dice(sides);
+    // Get a random number using the data source
+    const randomValue = this.dataSource.getRandomNumber(sides);
+    const dice = new Dice(sides);
+    dice.value = randomValue; // Set the random value on the dice
+    return dice;
   }
 }
 

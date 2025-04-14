@@ -9,11 +9,23 @@ interface DiceRollerProps {
 }
 
 const DiceRoller: React.FC<DiceRollerProps> = ({ onRoll }) => {
-  // Component implementation will go here
+  // Common dice types
+  const diceTypes = [4, 6, 8, 10, 12, 20, 100];
   
   return (
     <div className="dice-roller">
-      {/* UI elements will go here */}
+      <h3>Choose a dice to roll</h3>
+      <div className="dice-controls">
+        {diceTypes.map(sides => (
+          <button 
+            key={`d${sides}`}
+            className={`dice-button d${sides}`}
+            onClick={() => onRoll(sides)}
+          >
+            D{sides}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
