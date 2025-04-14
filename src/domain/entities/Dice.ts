@@ -3,7 +3,9 @@
  * Represents a dice with a specific number of sides
  */
 class Dice {
-  constructor(sides) {
+  sides: number;
+
+  constructor(sides: number) {
     this.sides = sides;
   }
 }

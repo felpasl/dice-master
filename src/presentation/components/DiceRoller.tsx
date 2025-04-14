@@ -4,7 +4,11 @@ import React from 'react';
  * DiceRoller Component
  * UI component for rolling dice
  */
-const DiceRoller = ({ onRoll }) => {
+interface DiceRollerProps {
+  onRoll: (sides: number) => void;
+}
+
+const DiceRoller: React.FC<DiceRollerProps> = ({ onRoll }) => {
   // Component implementation will go here
   
   return (
