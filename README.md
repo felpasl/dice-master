@@ -12,14 +12,17 @@ The project follows a clean architecture approach with the following layers:
 
 ```
 src/
+├── app/            # Application layer
+│   ├── services/       # Application services
+│   └── usecases/       # Application use case implementations
+├── di/             # Dependency injection
+│   └── container.ts    # DI container setup
 ├── domain/         # Business logic and rules
 │   ├── entities/       # Core business objects
 │   ├── repositories/   # Interfaces for data access
-│   └── usecases/       # Application-specific business rules
-├── data/           # Data layer implementation
-│   ├── datasources/    # Data providers (API, local storage, etc.)
-│   └── repositories/   # Concrete implementations of domain repositories
 ├── infrastructure/ # External services and frameworks
+│   ├── datasources/    # Data providers (API, local storage, etc.)
+│   ├── repositories/   # Concrete implementations of domain repositories
 │   └── services/       # Services for external interactions
 └── presentation/   # UI layer
     ├── components/     # Reusable UI components
