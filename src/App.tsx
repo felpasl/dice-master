@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './styles/App.css';
 import HomePage from './presentation/pages/HomePage';
 import { getRollDiceUseCase } from './di/container';
 
