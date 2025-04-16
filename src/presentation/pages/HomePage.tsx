@@ -56,7 +56,14 @@ const HomePage: React.FC<HomePageProps> = ({ rollDiceUseCase }) => {
         </div>
       );
     }
-    return null;
+    // Show instructions when no dice have been rolled yet
+    return (
+      <div className="last-roll-info">
+        <h2>Welcome to Dice Master!</h2>
+        <p>Select a die type from above and click to roll.</p>
+        <p>Results will appear here after you roll.</p>
+      </div>
+    );
   };
   
   return (
