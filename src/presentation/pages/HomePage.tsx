@@ -13,6 +13,15 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ rollDiceUseCase }) => {
   const [lastRoll, setLastRoll] = useState<{ sides: number, result: number } | null>(null);
+  const [animationState, setAnimationState] = useState<{
+    isAnimating: boolean;
+    sides: number | null;
+    currentValue: number | null;
+  }>({
+    isAnimating: false,
+    sides: null,
+    currentValue: null,
+  });
   
   const handleDiceRoll = (sides: number) => {
     // Use the provided use case to roll the dice
@@ -22,19 +31,42 @@ const HomePage: React.FC<HomePageProps> = ({ rollDiceUseCase }) => {
     console.log(`Rolling a ${sides}-sided die: ${dice.value}`);
   };
   
+  const handleAnimationChange = (isAnimating: boolean, sides: number | null, currentValue: number | null) => {
+    setAnimationState({
+      isAnimating,
+      sides,
+      currentValue,
+    });
+  };
+  
+  // Display either the animation value or the final roll result
+  const displayResult = () => {
+    if (animationState.isAnimating && animationState.currentValue !== null) {
+      return (
+        <div className="last-roll-info">
+          <h2>Rolling D{animationState.sides}</h2>
+          <p>Current value: <span className="roll-result">{animationState.currentValue}</span></p>
+        </div>
+      );
+    } else if (lastRoll) {
+      return (
+        <div className="last-roll-info">
+          <h2>Last Roll</h2>
+          <p>You rolled a D{lastRoll.sides} and got: <span className="roll-result">{lastRoll.result}</span></p>
+        </div>
+      );
+    }
+    return null;
+  };
+  
   return (
     <div className="home-page">
       <h1>Dice Master</h1>
       <p>Roll your dice with precision!</p>
       
-      <DiceRoller onRoll={handleDiceRoll} />
+      <DiceRoller onRoll={handleDiceRoll} onAnimationChange={handleAnimationChange} />
       
-      {lastRoll && (
-        <div className="last-roll-info">
-          <h2>Last Roll</h2>
-          <p>You rolled a D{lastRoll.sides} and got: <span className="roll-result">{lastRoll.result}</span></p>
-        </div>
-      )}
+      {displayResult()}
     </div>
   );
 };
