@@ -55,8 +55,17 @@ const HomePage: React.FC<HomePageProps> = ({ rollDiceUseCase }) => {
           <p>You rolled a D{lastRoll.sides} and got: <span className="roll-result">{lastRoll.result}</span></p>
         </div>
       );
+    } else {
+      // Show instructions when no rolls have happened yet
+      return (
+        <div className="last-roll-info">
+          <h2>Instructions</h2>
+          <p>Click on one of the dice buttons above to roll it.</p>
+          <p>Each dice is labeled with the number of sides (D4, D6, D8, etc.).</p>
+          <p>The result will appear here after rolling.</p>
+        </div>
+      );
     }
-    return null;
   };
   
   return (
